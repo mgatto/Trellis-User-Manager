@@ -1,0 +1,31 @@
+{% extends '_layouts/public.html.twig' %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+<div id="splash" class="span-18 last">
+    <div id="tabs" style="overflow:hidden;">
+         <ul>
+             <li><a href="{{ request_uri }}services/" title="Access Your Applications and Services"><span>Apps &amp; Services</span></a> <a href="#" rel="help" title="Access your services and request access to new services"><img src="/artwork/icons/small_help.gif" /></a></li>
+             <li><a href="{{ request_uri }}api/client" title="Manage your API Clients"><span>API Clients</span></a> <a href="#" rel="help" title="Manage API clients"><img src="/artwork/icons/small_help.gif" /></a></li>
+             <li><a href="{{ request_uri }}users/edit" title="Update Your Profile"><span>My Profile</span></a> <a href="#" rel="help" title="Update your profile and change your password"><img src="/artwork/icons/small_help.gif" /></a></li>
+         </ul>
+    </div>
+</div>
+{% endblock %}
+
+{% block javascript %}
+$("#tabs").tabs({
+    cache: true,
+    cookie: { expires: 30 },
+    ajaxOptions: {
+        error: function( xhr, status, index, anchor ) {
+            $(anchor.hash).html(
+                "Couldn't load this tab. We'll try to fix this as soon as possible. "
+            );
+        },
+        //html data type should cause included script blocks to evaluate now
+        dataTye: 'html'
+    }
+});
+{% endblock %}

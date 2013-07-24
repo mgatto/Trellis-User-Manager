@@ -1,0 +1,28 @@
+{% extends app.request.isXmlHttpRequest ? "_layouts/ajax.html.twig" : "_layouts/public.html.twig" %}
+
+{% block title %}
+    {% if 404 == code %}Page Not Found{% else %}Error{% endif %}
+{% endblock %}
+
+{% block content %}
+<div class="box span-17 last">
+    <div class="prepend-2 span-13 append-2 last">
+        <div class="error append-bottom">
+            <h1>{% if 404 == code %}404{% else %}Error{% endif %}</h1>
+
+            {{ error_message|raw }}
+
+            {% if app.debug %}
+                {{ exception|raw }}
+            {% endif %}
+        </div>
+
+        <h4>Contact iPlant Support:</h4>
+        <ul>
+            <li>Use the contact tab to the left,</li>
+            <li>Email: <a href="mailto:support@iplantcollaborative.org">support@iplantcollaborative.org</a>,</li>
+            <li>Web Form: <a href="http://www.iplantcollaborative.org/support">http://www.iplantcollaborative.org/support</a>.</li>
+        </ul>
+    </div>
+</div>
+{% endblock %}

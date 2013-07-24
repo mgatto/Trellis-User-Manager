@@ -1,0 +1,48 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <title>{% block title %}{{ subject }}{% endblock %}</title>
+        <script type="text/javascript">
+            var _gaq = _gaq || [];
+            _gaq.push(['_setAccount', 'UA-29769003-1']);
+            _gaq.push(['_trackPageview']);
+            (function() {
+                var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+                 ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+                 var s = document.getElementsByTagName('script')[0];
+                s.parentNode.insertBefore(ga, s);
+            })();
+        </script>
+    </head>
+    <body leftmargin="0" marginwidth="0" topmargin="0" marginheight="0" offset="0">
+        <table cellpadding="20" cellspacing="0" border="0" height="100%" width="100%">
+            <tr>
+                <td align="left" valign="top" bgcolor="#d9f0f2">
+                    <h2 style="color: black !important; font-family: Arial, Helvetica, sans-serif;">{{ subject }}</h2>
+                    <hr color="#0098aa" />
+                    <table cellpadding="20" cellspacing="0" border="0" height="100%" width="100%">
+                        <tr>
+                            <td align="left" valign="top" bgcolor="#FFFFFF">
+                                <p style="margin-top: 1em; margin-bottom: 1em; margin-left: 0; margin-right: 0; color: #333; font-family: Arial, Helvetica, sans-serif; font-size: 12pt;">Hello {{ person.firstname }} {{ person.lastname }},</p>
+                                {% block content %}{% endblock %}
+                                <p style="color:#333;font-family:Arial, Helvetica, sans-serif; font-size:12pt;">As a reminder, your iPlant username is: <strong>{{ person.account.username }}</strong>.</p>
+                                <p style="color:#333;font-family:Arial, Helvetica, sans-serif; font-size:12pt;">Sincerely,<br /> - iPlant Collaborative Staff</p>
+                                <!-- Core Services Team
+                                     iPlant Collaborative
+                                     support@iplantcollaborative.org -->
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td align="left" valign="top" bgcolor="#d9f0f2">
+                    <img src="http://user.iplantcollaborative.org/artwork/logo_small.png" />
+                    <p style="margin-top: 1em; margin-bottom: 1em; margin-left: 0; margin-right: 0; color: #333; font-family: Arial, Helvetica, sans-serif; font-size: 8pt; font-style:italic;">Prevent email from support@iplantcollaborative going into your spam box by adding us to your safe list in your email reader.</p>
+                    <p style="margin-top: 1em; margin-bottom: 1em; margin-left: 0; margin-right: 0; color: #333; font-family: Arial, Helvetica, sans-serif; font-size: 8pt; font-style:italic;">You received this email because you registered with the iPlant Collaborative. We use email to communicate essential information to our community.</p>
+                </td>
+            </tr>
+        </table>
+    </body>
+</html>

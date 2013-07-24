@@ -1,0 +1,61 @@
+{% extends '_layouts/public.html.twig' %}
+
+{% block title %}Trellis User API Client{% endblock %}
+
+{% block content %}
+<div class="box span-17 last">
+    <h3>New API Client</h3>
+
+    <div class="span-16 last">
+        {{ form_errors(form) }}
+    </div>
+
+    <form action="{{ action }}" method="post" id="new_client" enctype="multipart/form-data">
+        <fieldset>
+            <legend>Apply to Register a New Client for the Trellis User API</legend>
+
+            <p>Fill in the form below. Once you submit it, we will review your registration and issue a decision.</p>
+
+            <div>
+                {{ form_label(form.name) }}<br />
+                {{ form_widget(form.name) }}
+                {{ form_errors(form.name) }}
+            </div>
+            <br /><br />
+            <div>
+                {{ form_label(form.description) }}<br />
+                {{ form_widget(form.description) }}
+                {{ form_errors(form.description) }}
+            </div>
+            <br /><br />
+            <div>
+                {{ form_label(form.url) }}<br />
+                {{ form_widget(form.url) }}
+                <p>Must include http:// or https://</p>
+                {{ form_errors(form.url) }}
+            </div>
+            <br /><br />
+            <div>
+                {{ form_label(form.ip_address) }}<br />
+                {{ form_widget(form.ip_address) }}
+                <p>up to 5 IP Addresses, separated by commas.</p>
+                {{ form_errors(form.ip_address) }}
+            </div>
+            <hr />
+            <div>
+                {{ form_label(form.how_will_use) }}<br />
+                {{ form_widget(form.how_will_use) }}
+                {{ form_errors(form.how_will_use) }}
+            </div>
+            <br /><br />
+            <div>
+                {{ form_widget(form.api.id) }}
+
+                {{ form_widget(form._token) }}
+
+                <input type="submit" value="Save" />
+            </div>
+        </fieldset>
+    </form>
+</div>
+{% endblock %}

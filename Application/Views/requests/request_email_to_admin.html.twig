@@ -1,0 +1,57 @@
+<html>
+    <head>
+        <title>User Requests to Access {{ service.name }}</title>
+    </head>
+    <body>
+        <div>
+            <p><strong>Hello Core Services!</strong></p>
+            <p>{{ person.firstname }} {{ person.lastname }} has requested access to {{ service.name }} in the user portal with username: <strong>{{ person.account.username }}</strong>.</p>
+
+            <p>
+                They are a <strong>{{ person.profile.position }}</strong>
+                in <strong>{{ person.profile.department }}</strong>
+                at <strong>{{ person.profile.institution }}</strong>
+                located in
+                {% if person.address.state is defined %} {{ person.address.state }} {% endif %}
+                {% if person.address.country is defined %}, {{ person.address.country }} {% endif %}
+            </p>
+
+            <h2>Request Details</h2>
+            <dl>
+                {% for question, answer in data[key] %}
+                <dt>{{ question|capitalize }}</dt>
+                <dd>
+                    <p>{{ answer|join(',') }}</p>
+                </dd>
+                {% endfor %}
+            </dl>
+        </div>
+
+        <div>
+            <h2>Contact</h2>
+            <table>
+                <tr>
+                    <th>Email:</th>
+                    <td>{{ person.emails.0.email }}</td>
+                </tr>
+                <tr>
+                    <th>Phone:</th>
+                    <td>{{ person.phonenumbers.0.number }}</td>
+                </tr>
+            </table>
+        </div>
+
+        <div>
+            <h2>Admin Actions</h2>
+            <ul>
+                <li><a href="http://user.iplantcollaborative.org/api/request/approve/{{ request.account.id }}/{{ request.service.id }}">Approve</a></li>
+                <li><a href="http://user.iplantcollaborative.org/api/request/deny/{{ request.account.id }}/{{ request.service.id }}">Deny</a></li>
+            </ul>
+        </div>
+
+        <p>
+        Sincerely,<br />
+        - the iPlant User Manager
+        </p>
+    </body>
+</html>

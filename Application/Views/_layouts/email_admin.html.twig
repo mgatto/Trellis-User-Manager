@@ -1,0 +1,26 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <title>{% block title %}{{ subject }}{% endblock %}</title>
+    </head>
+    <body leftmargin="0" marginwidth="0" topmargin="0" marginheight="0" offset="0">
+        <table cellpadding="20" cellspacing="0" border="0" height="100%" width="100%">
+            <tr>
+                <td align="left" valign="top" bgcolor="#d9f0f2">
+                    <h2 style="color: black !important; font-family: Arial, Helvetica, sans-serif;">{{ subject }}</h2>
+                    <hr color="#0098aa" />
+                    <table cellpadding="20" cellspacing="0" border="0" height="100%" width="100%">
+                        <tr>
+                            <td align="left" valign="top" bgcolor="#FFFFFF">
+                                <p style="margin-top: 1em; margin-bottom: 1em; margin-left: 0; margin-right: 0; color: #333; font-family: Arial, Helvetica, sans-serif; font-size: 12pt;">Hello Core Services,</p>
+                                {% block content %}{% endblock %}
+                                <p style="color:#333;font-family:Arial, Helvetica, sans-serif; font-size:12pt;">Sincerely,<br /> - Trellis, the iPlant User Manager</p>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+    </body>
+</html>

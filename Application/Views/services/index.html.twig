@@ -1,0 +1,224 @@
+<div id="services-and-apps">
+    <div id="services-menu" class="span-17 last append-bottom">
+        <a href="#mine">My Services ({{ services|length }})</a> |
+       {% if requests %} <a href="#pending">Pending Service Requests ({{ requests|length }})</a> |{% endif %}
+        <a href="#available">Available Services ({{ availables|length }})</a>
+    </div>
+
+{% if requests %}
+    <hr />
+    <h3 id="pending" class="span-17 last">Pending Requests for Services <a href="#" rel="help" title="These are the services you requested which are currently being processed for addition to your account"><img src="/artwork/icons/small_help.gif" alt="Help"/></a></h3>
+    <p class="notice span-16 last"><strong>Note: Refresh the page to see if your requests are completed.</strong></p>
+
+    {% for request in requests %}
+    <div id="{{ request.service.name }}" class="box span-16 last">
+
+        <div class="span-1 service-icon">
+        {% if request.service.icon %}
+            <img src="/artwork/icons/{{ request.service.icon }}" title="{{ request.service.name }}" />
+        {% else %}
+            &nbsp;
+        {% endif %}
+        </div>
+
+        <div class="span-4 service-name">
+            {{ request.service.name }}
+            <br />
+            <span class="small quiet">Maintained by: {{ request.service.maintainer.name }}</span>
+        </div>
+
+        <div class="span-7 service-description">
+            <p>{{ request.service.description }}</p>
+        </div>
+
+        <div class="span-4 service-url last">
+            <div class="span-4 last">
+                <span>Request Status:
+                {% if request.status == 'add' %}
+                    <strong>Pending</strong>
+                {% else %}
+                    <strong>{{ request.status|title }}</strong>
+                {% endif %}
+                {% if request.status == 'failed' %}
+                    <br />
+                    <span class="quiet small">We will retry the request</span>
+                {% endif %}
+                </span>
+            </div>
+
+            {% for action in request.service.actions %}
+                {% if action.event == 'help' %}
+                <div class="span-1 last" style="border-top:1px dotted lightgray;margin-top:3px;padding-top:3px;">
+                    <a href="{{ action.url }}" target="_blank" title="User Manual" class="small quiet">
+                        <img src="/artwork/icons/small_doc.gif" width="14" height="16" style="margin-bottom:-3px;" />
+                    </a>
+                </div>
+                {% endif %}
+
+                {% if action.event == 'email' %}
+                <div class="span-1 last" style="border-top:1px dotted lightgray;margin-top:3px;padding-top:3px;">
+                    <a href="mailto:{{ action.url }}">
+                        <img src="/artwork/icons/small_mail.gif" alt="email" style="margin-bottom:-3px;" title="Email the maintainer" />
+                    </a>
+                </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+    {% endfor %}
+{% endif %}
+
+    <hr />
+    <h3 id="mine" class="span-17 last">My Services <a href="#" rel="help" title="These are the services to which you currently access"><img class="help-tooltip" src="/artwork/icons/small_help.gif" /></a></h3>
+{% if services %}
+    {% for service in services %}
+
+    {# must set service_url outside the 'action' for loop so the var is available outside that loop! #}
+    {% set service_url = "" %}
+    {% for action in service.actions %}
+        {% if action.event == 'access' %}
+            {% set service_url = action.url %}
+        {% endif %}
+    {% endfor %}
+
+    <div id="{{ service.name }}" class="box span-16 last">
+        <div class="span-1 service-icon">
+        {% if service.icon %}
+            {% if service.maintenanceMessage is empty %}
+            <a href="{{ service_url }}" target="_blank">
+            {% endif %}
+                <img src="/artwork/icons/{{ service.icon }}" title="{{ service.name }}" width="36" height="36" />
+            {% if service.maintenanceMessage is empty %}
+            </a>
+            {% endif %}
+        {% else %}
+            &nbsp;
+        {% endif %}
+        </div>
+
+        <div class="span-4 service-name">
+            {% if service.maintenanceMessage is empty %}
+            <a href="{{ service_url }}" target="_blank">
+            {% endif %}
+                <strong>{{ service.name }}</strong>
+            {% if service.maintenanceMessage is empty %}
+            </a>
+            {% endif %}
+            <div>
+                <span class="small quiet">Maintained by: {{ service.maintainer.name }}</span>
+            </div>
+        </div>
+
+        <div class="span-7 service-description">
+            <p>{{ service.description }}</p>
+        </div>
+
+        <div class="span-4 service-url last">
+        {% for action in service.actions %}
+            {% if action.event == 'access' %}
+                {% if service.maintenanceMessage is empty %}
+                <div class="span-4 last">
+                    <a href="{{ action.url }}" target="_blank">
+                        Go to {{ service.name }}
+                    </a>
+                </div>
+                {% else %}
+                    <strong class="">Unavailable</strong>
+                {% endif %}
+            {% endif %}
+
+            {% if action.event == 'help' %}
+            <div class="span-1 last" style="border-top:1px dotted lightgray;margin-top:3px;padding-top:3px;">
+                <a href="{{ action.url }}" target="_blank" title="User Manual" class="small quiet">
+                    <img src="/artwork/icons/small_doc.gif" width="14" height="16" style="margin-bottom:-3px;" />
+                </a>
+            </div>
+            {% endif %}
+
+            {% if action.event == 'email' %}
+            <div class="span-1 last" style="border-top:1px dotted lightgray;margin-top:3px;padding-top:3px;">
+                <a href="mailto:{{ action.url }}">
+                    <img src="/artwork/icons/small_mail.gif" alt="email" style="margin-bottom:-3px;" title="Email the maintainer" />
+                </a>
+            </div>
+            {% endif %}
+        {% endfor %}
+        </div>
+
+        {% if service.maintenanceMessage %}
+            <div class="error span-15 last" style="margin:0;margin-top:0.5em;">{{ service.maintenanceMessage }}</div >
+        {% endif %}
+    </div>
+    {% endfor %}
+{% else %}
+    <div id="" class="span-16 last">
+        You have no current services. Request access to services below to add them to your account.
+    </div>
+{% endif %}
+
+    <hr />
+    <h3 id="available" class="span-17 last">Available Services <a href="#" rel="help" title="These are the services to which you may request access"><img src="/artwork/icons/small_help.gif" alt="Help" /></a></h3>
+{% for available in availables %}
+    <div id="{{ available.name }}" class="box span-16 last">
+
+        <div class="span-1 service-icon">
+        {% if available.icon %}
+            <img src="/artwork/icons/{{ available.icon }}" title="{{ available.name }}" width="36" height="36" />
+        {% else %}
+            &nbsp;
+        {% endif %}
+        </div>
+
+        <div class="span-4 service-name">
+            {{ available.name }}
+            <br />
+            <span class="small quiet">Maintained by: {{ available.maintainer.name }}</span>
+        </div>
+
+        <div class="span-7 service-description">
+            <p>{{ available.description }}</p>
+        </div>
+
+        <div class="span-4 service-url last">
+            <div class="span-4 last">
+                <a class="request-service " href="/services/request/{{ available.id }}">Request Access</a>
+            </div>
+            {% for action in available.actions %}
+                {% if action.event == 'help' %}
+                <div class="span-1 last" style="border-top:1px dotted lightgray;margin-top:3px;padding-top:3px;">
+                    <a href="{{ action.url }}" target="_blank" title="User Manual" class="small quiet">
+                        <img src="/artwork/icons/small_doc.gif" width="14" height="16" style="margin-bottom:-3px;" />
+                    </a>
+                </div>
+                {% endif %}
+
+                {% if action.event == 'email' %}
+                <div class="span-1 last" style="border-top:1px dotted lightgray;margin-top:3px;padding-top:3px;">
+                    <a href="mailto:{{ action.url }}">
+                        <img src="/artwork/icons/small_mail.gif" alt="email" style="margin-bottom:-3px;" title="Email the maintainer" />
+                    </a>
+                </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+
+        {% if available.maintenanceMessage %}
+            <div class="error span-15 last" style="margin:0;margin-top:0.5em;">{{ available.maintenanceMessage }}</div >
+        {% endif %}
+    </div>
+{% endfor %}
+
+    <script type="text/javascript">
+        /* prevent double click of service requests. This may happen when the
+           user is on a slow internet connection. The POST occurs and is
+           processed server-side, yet the HTTP redirect has not occured when
+           they click again.
+        */
+        $("a.request-service").bind('click', function(e){
+            if( $(this).hasClass('disabled') ) {
+                e.preventDefault();
+            }
+            $(this).addClass('disabled');
+        });
+    </script>
+</div>

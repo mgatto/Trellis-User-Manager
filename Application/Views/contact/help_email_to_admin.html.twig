@@ -1,0 +1,24 @@
+Help, Core Services!
+
+{% if user %}
+{{ user.firstname }} {{ user.lastname }} needs help!
+{% else %}
+An anonymouse user needs help!
+{% endif %}
+
+They said, "{{ body }}"
+
+They were on this page: {{ users_current_url }} from IP Address: {{ users_ip_address }}.
+
+Email: {{ email }}
+
+{% if user %}
+Alternate Email: {{ user.emails.0.email }}
+Phone: {{ user.phonenumbers.0.number }}
+Fax: {{ user.faxnumbers.0.number }}
+{% else %}
+The user was not logged in, so I can only give you the email they supplied.
+{% endif %}
+
+Sincerely,
+- the iPlant User Manager

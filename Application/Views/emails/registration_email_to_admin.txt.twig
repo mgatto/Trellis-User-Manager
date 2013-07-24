@@ -1,0 +1,24 @@
+{% extends '_layouts/email_admin.txt.twig' %}
+
+{% set subject %}New Registration - {{ person.account.username }}{% endset %}
+
+{% block content %}
+Username:    {{ person.account.username }}
+
+Real Name:   {{ person.firstname }} {{ person.lastname }}
+
+Position:    {{ person.profile.position.name }}
+
+Department:  {{ person.profile.department }}
+
+Institution: {{ person.profile.institution }}
+
+Email:       {{ person.emails.0.email }}
+
+Phone:       {{ person.phonenumbers.0.number }}
+
+Location:    {{ person.address.state }}, {{ person.address.country }}
+
+Sincerely,
+- the iPlant User Manager
+{% endblock %}

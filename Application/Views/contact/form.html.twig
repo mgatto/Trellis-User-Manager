@@ -1,0 +1,29 @@
+{% block content %}
+<h3>Help Request</h3>
+<p>Tell us how we can help you.</p>
+<div>
+    {{ form_errors(form) }}
+</div>
+
+<form action="{{ action }}" method="post" id="help_request" {{ form_enctype(form) }} accept-charset="UTF-8">
+    <div>
+        {{ form_label(form.email) }}<br />
+        {{ form_widget(form.email) }}
+        {{ form_errors(form.email) }}
+    </div>
+
+    <div>
+        {{ form_label(form.body) }}<br />
+        {{ form_widget(form.body) }}
+        {{ form_errors(form.body) }}
+    </div>
+
+    <div>
+        {# form_widget(form._token) #}
+
+        {{ form_rest(form) }}
+
+        <input type="submit" value="Send Mail" />
+    </div>
+</form>
+{% endblock content %}

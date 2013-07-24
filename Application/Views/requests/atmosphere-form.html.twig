@@ -1,0 +1,30 @@
+{% extends '_layouts/public.html.twig' %}
+
+{% block title %}Request Atmosphere{% endblock %}
+
+{% block content %}
+<div class="box span-17 last">
+    <h3>Request Access to Atmosphere</h3>
+
+    <p class="notice">You must have a valid institutional (academic or governmental) email address, else your request for Atmosphere may be denied. Please contact iPlant Support if you need to change your email address.</p>
+
+    <div class="span-16 last">
+        {{ form_errors(form) }}
+    </div>
+
+    <form action="{{ action }}" method="post" id="edit_user" enctype="multipart/form-data" accept-charset="UTF-8">
+        <div id="usage" class="span-16 last">
+            {{ form_label(form.how_will_use) }}<br />
+            {{ form_widget(form.how_will_use) }}
+            {{ form_errors(form.how_will_use) }}
+        </div>
+
+        <div class="span-16 last prepend-top">
+            {{ form_widget(form.id) }}
+            {{ form_widget(form._token) }}
+
+            <input type="submit" value="Save Request" />
+        </div>
+    </form>
+</div>
+{% endblock %}

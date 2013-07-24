@@ -1,0 +1,40 @@
+{% extends '_layouts/email_admin.html.twig' %}
+
+{% set subject %}New Registration - {{ person.account.username }}{% endset %}
+
+{% block content %}
+<table>
+    <tr>
+        <th align="right">Name:</th>
+        <td>{{ person.firstname }} {{ person.lastname }}</td>
+    </tr>
+    <tr>
+        <th align="right">Username:</th>
+        <td><strong>{{ person.account.username }}</strong></td>
+    </tr>
+    <tr>
+        <th align="right">Position:</th>
+        <td>{{ person.profile.position.name }}</td>
+    </tr>
+    <tr>
+        <th align="right">Department:</th>
+        <td>{{ person.profile.department }}</td>
+    </tr>
+    <tr>
+        <th align="right">Institution:</th>
+        <td>{{ person.profile.institution }}</td>
+    </tr>
+    <tr>
+        <th align="right">Email:</th>
+        <td>{{ person.emails.0.email }}</td>
+    </tr>
+    <tr>
+        <th align="right">Phone:</th>
+        <td>{{ person.phonenumbers.0.number }}</td>
+    </tr>
+    <tr>
+        <th align="right">Location:</th>
+        <td>{{ person.address.state }}, {{ person.address.country }}</td>
+    </tr>
+</table>
+{% endblock %}

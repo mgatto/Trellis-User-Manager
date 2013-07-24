@@ -1,0 +1,9 @@
+{% extends '_layouts/email_user.html.twig' %}
+
+{% set subject %}iPlant - Username Reminder{% endset %}
+
+{% block content %}
+<p style="color:#333;font-family:Arial, Helvetica, sans-serif; font-size:12pt;">You have requested to be reminded of your username.</p>
+<p style="color:#333;font-family:Arial, Helvetica, sans-serif; font-size:12pt;">Your username is: <b>{{ person.account.username }}</b>.</p>
+<p style="color:#333;font-family:Arial, Helvetica, sans-serif; font-size:12pt;">If you have not made this request, please ignore it and report this to iPlant at <a style="color: #0098aa" target="_blank" href="http://www.iplantcollaborative.org/support">http://www.iplantcollaborative.org/support</a>.</p>
+{% endblock %}

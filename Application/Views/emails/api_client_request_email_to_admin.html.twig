@@ -1,0 +1,55 @@
+{% extends '_layouts/email_admin.html.twig' %}
+
+{% set subject %}{{ person.account.username }} Requests Approval for API Client{% endset %}
+
+{% block content %}
+
+<table>
+    <tr>
+        <th>Name:</th>
+        <td>{{ person.firstname }} {{ person.lastname }}</td>
+    </tr>
+    <tr>
+        <th>Email:</th>
+        <td>{{ person.emails[0].email }}</td>
+    </tr>
+    <tr>
+        <th>Position:</th>
+        <td>{{ person.profile.position.name }}</td>
+    </tr>
+    <tr>
+        <th>Department:</th>
+        <td>{{ person.profile.department }}</td>
+    </tr>
+    <tr>
+        <th>Institution:</th>
+        <td>
+            {{ person.profile.institution }} in
+            {% if person.address.state is defined %} {{ person.address.state }}, {% endif %}
+            {% if person.address.country is defined %} {{ person.address.country }} {% else %} N/A {% endif %}
+        </td>
+    </tr>
+    <tr>
+        <th>API Client Name:</th>
+        <td>{{ client.name }}, using {{ client.api.name }}</td>
+    </tr>
+    <tr>
+        <th>Homepage or Documentation:</th>
+        <td>{{ client.url }}</td>
+    </tr>
+    <tr>
+        <th>Description:</th>
+        <td>{{ client.description }}</td>
+    </tr>
+    <tr>
+        <th>How Will Data be Used?</th>
+        <td>{{ client.how_will_use }}</td>
+    </tr>
+</table>
+
+<h2>Admin Actions</h2>
+<ul>
+    <li><a href="https://{{ host }}/api/v1/client/approve/{{ person.account.id }}/{{ client.id }}">Approve</a></li>
+    <li><a href="https://{{ host }}/api/v1/client/deny/{{ person.account.id }}/{{ client.id }}">Deny</a></li>
+</ul>
+{% endblock %}

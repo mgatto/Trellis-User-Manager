@@ -1,0 +1,231 @@
+<div id="profile_form" class="span-17 last">
+    <div class="span-16 last">
+        {{ form_errors(form) }}
+    </div>
+
+    <p class="span-17 last">
+        <a href="{{ reset_url }}" target="_top" class="button" style="float:right;margin-bottom:-1em;">Reset Password</a>
+    </p>
+
+    <form action="{{ action }}" method="post" id="edit_user" enctype="multipart/form-data" accept-charset="UTF-8">
+        <fieldset class="span-16 last">
+            <legend>Personal Information</legend>
+
+            <div id="names" class="span-15 last">
+                <div class="span-6">
+                    {{ form_label(form.firstname, 'First Name', { 'attr': {'class': 'required'} }) }}<br />
+                    {{ form_widget(form.firstname) }}
+                    {{ form_errors(form.firstname) }}
+                </div>
+
+                <div class="span-6 last">
+                    {{ form_label(form.lastname, 'Last Name', { 'attr': {'class': 'required'} }) }}<br />
+                    {{ form_widget(form.lastname) }}
+                    {{ form_errors(form.lastname) }}
+                </div>
+            </div>
+
+            <hr class="span-16" />
+
+            <div class="span-16 last">
+                <div class="span-6">
+                    {{ form_label(form.gender, 'Gender') }}<br />
+                    {{ form_widget(form.gender) }}
+                    {{ form_errors(form.gender) }}
+                </div>
+
+                <div class="span-6">
+                    {{ form_label(form.ethnicity, 'Ethnicity') }}<br />
+                    {{ form_widget(form.ethnicity,  { 'empty_value': '-- Choose One --' }) }}
+                    {{ form_errors(form.ethnicity) }}
+                </div>
+
+                <div class="span-6 last">
+                    {{ form_label(form.citizenship) }}<br />
+                    {{ form_widget(form.citizenship,  { 'empty_value': '-- Choose One --' }) }}
+                    {{ form_errors(form.citizenship) }}
+                </div>
+            </div>
+
+            <hr class="span-16" />
+
+            <div class="span-16 last">
+                <div class="span-5">
+                    {{ form_label(form.address.city, 'City', { 'attr': {'class': 'required'} }) }}<br />
+                    {{ form_widget(form.address.city, { 'attr': { 'class': 'span3' } }) }}
+                    {{ form_errors(form.address.city) }}
+                </div>
+
+                <div class="span-5">
+                    {{ form_label(form.address.state, 'State/Province', { 'attr': {'class': 'required'} }) }}<br />
+                    {{ form_widget(form.address.state, { 'attr': { 'class': 'span3' } }) }}
+                    {{ form_errors(form.address.state) }}
+                </div>
+
+                <div class="span-5 last">
+                    {{ form_label(form.address.country, 'Country', { 'attr': {'class': 'required'} }) }}<br />
+                    {{ form_widget(form.address.country, {'empty_value': '-- Choose One --'}) }}
+                    {{ form_errors(form.address.country) }}
+                </div>
+            </div>
+
+            <fieldset id="contact" class="span-15 last">
+                <legend>Contact</legend>
+
+                {% for email in form.emails %}
+                    <div class="span-6">
+                        {{ form_label(email.email, 'Email', { 'attr': {'class': 'required'} }) }}<br />
+                        {{ form_widget(email.email, { 'attr': {'class': 'span4', 'readonly': 'readonly'} }) }}
+                        <p class="small">Please <a href="#" onclick="$('.handle').click();" style="text-decoration: underline;">contact support</a> to change your email.</p>
+                        {{ form_errors(email.email) }}
+                    </div>
+                {% endfor %}
+
+                {% for phone in form.phonenumbers %}
+                    <div class="span-4">
+                        {{ form_label(phone.number, 'Phone (optional)') }}<br />
+                        {{ form_widget(phone.number, { 'attr': {'class': 'span2'} }) }}
+                        {{ form_errors(phone.number) }}
+                    </div>
+                {% endfor %}
+
+                {% for fax in form.faxnumbers %}
+                    <div class="span-5 last">
+                        {{ form_label(fax.number, 'Fax (optional)') }}<br />
+                        {{ form_widget(fax.number, { 'attr': {'class': 'span2'} }) }}
+                        {{ form_errors(fax.number) }}
+                    </div>
+                {% endfor %}
+            </fieldset>
+
+            <div class="span-6 colborder">
+                {{ form_label(form.profile.participate_in_survey, "Participate in a research study about your use of iPlant's applications and services?", { 'attr': {'class': 'required'} }) }}
+                (<a target="_blank" href="http://www.iplantcollaborative.org/about/understanding-use">Understanding Use</a>)
+                <br />
+                {{ form_widget(form.profile.participate_in_survey) }}
+                {{ form_errors(form.profile.participate_in_survey) }}
+            </div>
+
+            <div class="span-8 last">
+                {{ form_label(form.profile.how_heard_about, 'How did you hear about us?') }}<br />
+                {{ form_widget(form.profile.how_heard_about,  { 'empty_value': '-- None --' }) }}
+                {{ form_errors(form.profile.how_heard_about) }}
+            </div>
+        </fieldset>
+
+        <fieldset id="institution" class="span-16 last">
+            <legend>Institutional Information</legend>
+
+            <div class="span-6">
+                {{ form_label(form.profile.institution.name, 'Company or Institution', { 'attr': {'class': 'required'} }) }}<br />
+                {{ form_widget(form.profile.institution.name, { 'attrs': { 'size': '48' } } ) }}
+                {{ form_errors(form.profile.institution.name) }}
+            </div>
+
+            <div class="span-6 last">
+                {{ form_label(form.profile.department, 'Your Department', { 'attr': {'class': 'required'} }) }}<br />
+                {{ form_widget(form.profile.department) }}
+                {{ form_errors(form.profile.department) }}
+            </div>
+
+            <hr class="span-16" />
+
+            <div class="span-6">
+                {{ form_label(form.profile.position, 'Your Occupation', { 'attr': {'class': 'required'} }) }}<br />
+                {{ form_widget(form.profile.position, {'empty_value': '-- Choose One --'}) }}
+                {{ form_errors(form.profile.position) }}
+            </div>
+
+            <hr class="span-16" />
+
+            <div class="span-6 last">
+                {{ form_label(form.profile.research_area, 'Your Research Area (optional)') }}<br />
+                {{ form_widget(form.profile.research_area, { 'empty_value': '-- None --' }) }}
+                {{ form_errors(form.profile.research_area) }}
+            </div>
+
+            <div class="span-6 last">
+                {{ form_label(form.profile.institution.funding_agencies, 'Funding Agencies (optional)', { 'attr': {'class': 'required'} }) }}<br />
+                {{ form_widget(form.profile.institution.funding_agencies, { 'attr': {'class': 'span6', 'size': '4' } }) }}
+                {{ form_errors(form.profile.institution.funding_agencies) }}
+            </div>
+        </fieldset>
+
+        <div class="span-6 append-4 prepend-7 last">
+            <input type="submit" value="Update" />
+        </div>
+    </form>
+
+    <div id="success_dialog" class="dialog" title="User Update">
+        <p>
+            <img src="/artwork/icons/accept.png" alt="" />
+            Your profile was successfully updated.
+        </p>
+    </div>
+
+    <div id="failure_dialog" class="dialog" title="User Update Error">
+        <p>
+            <img src="/artwork/icons/alert.gif" alt="" />
+            Please check the form for errors.
+        </p>
+    </div>
+
+    <script type="text/javascript">
+        $(function() {
+            $(".dialog").dialog("destroy");
+            //$("#failure_dialog").dialog("destroy");
+
+            $(".dialog").dialog({
+                modal: true,
+                autoOpen: false,
+                buttons: {
+                    OK: function() {
+                        $(this).dialog("close");
+                    }
+                }
+            });
+
+            $("#person_profile_institution_name").each(function() {
+                var autoCompelteElement = this;
+                var formElementName = $(this).attr('name');
+                var formElementId = $(this).attr('id');
+                var hiddenElementID  = formElementId + '_autocomplete_hidden';
+
+                $(this).autocomplete({
+                    source:'/api/v1/institutions/',
+                    minLength: 2,
+                    select: function(event, ui) {
+                        //if user selects more than one, we get multiple hidden id elements
+                        $('#'+hiddenElementID).remove();
+
+                        //changed so not editing it doesn't erase existing values
+                        /* change name of orig input */
+                        $(this).attr('name', formElementName + '_autocomplete_label');
+                        /* create new hidden input with name of orig input */
+                        $(this).after("<input value=\"\" type=\"hidden\" name=\"" + formElementName + "\" id=\"" + hiddenElementID + "\" />");
+
+                        var selectedObj = ui.item;
+                        $(autoCompelteElement).val(selectedObj.label);
+                        $('#'+hiddenElementID).val(selectedObj.value);
+
+                        return false;
+                    }
+                });
+            });
+
+            $('#edit_user').ajaxForm({
+                target: '#profile_form',
+                replaceTarget: true,
+                success: function(responseText, statusText, xhr) {
+console.log(xhr);
+                    if (xhr.status != 200) {
+                        $('#failure_dialog').dialog("open");
+                    } else {
+                        $('#success_dialog').dialog("open");
+                    }
+
+                }
+            });
+        });
+    </script>
+</div>

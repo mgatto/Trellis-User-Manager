@@ -1,0 +1,40 @@
+{% extends '_layouts/email_admin.txt.twig' %}
+
+{% set subject %}User Requests to Access {{ service.name }}{% endset %}
+
+{% block content %}
+{{ person.firstname }} {{ person.lastname }} has requested access to {{ service.name }}
+in the user portal.
+
+Username:       {{ person.account.username }}
+Position: 		{{ person.profile.position.name }}
+Department:     {{ person.profile.department }}
+Institution:    {{ person.profile.institution }}
+Location:       {{ person.address.state }}, {{ person.address.country }}
+
+
+Request Details
+---------------
+
+{% for question, answer in data[key] %}
+{{ question|capitalize }}
+{{ answer|join(',') }}
+{% endfor %}
+
+
+Contact
+-------
+Email:  {{ person.emails.0.email }}
+Phone:  {{ person.phonenumbers.0.number }}
+
+
+Admin Actions
+-------------
+* Approve: https://user.iplantcollaborative.org/api/v1/request/approve/{{ request.account.id }}/{{ request.service.id }}
+* Deny:	   https://user.iplantcollaborative.org/api/v1/request/deny/{{ request.account.id }}/{{ request.service.id }}
+
+
+Sincerely,
+- the iPlant User Manager
+
+{% endblock %}

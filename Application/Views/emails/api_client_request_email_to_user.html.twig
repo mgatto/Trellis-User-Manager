@@ -1,0 +1,7 @@
+{% extends '_layouts/email_user.html.twig' %}
+
+{% set subject %}iPlant - API Client {{ decision }}{% endset %}
+
+{% block content %}
+<p style="color:#333;font-family:Arial, Helvetica, sans-serif; font-size:12pt;">Your request for {{ client.name }} was {{ decision|lower }}.</p>
+{% endblock %}

@@ -1,0 +1,263 @@
+{% extends '_layouts/public.html.twig' %}
+
+{% block title %}New Registration{% endblock %}
+
+{% block content %}
+<div class="span-17 last">
+    {{ form_errors(form) }}
+</div>
+
+<style>
+    legend {margin-left:-15px;}
+</style>
+
+
+<form action="{{ action }}" method="post" id="new_user" enctype="multipart/form-data" accept-charset="UTF-8">
+    <fieldset class="span-18 last" style="border-top-left-radius: 10px;">
+        <h2>Register</h2>
+
+        <p>
+            After you complete the registration process, you will have automatic access to the following iPlant services:
+            Discovery Environment, My-Plant, iPlant Data Store, iPlant Wiki, TNRS and Bug and Issue Tracking.
+        </p>
+    </fieldset>
+
+    <fieldset class="span-18 last">
+        <legend>Personal Information</legend>
+
+        <div id="names" class="span-17 last">
+            <div class="span-6">
+                {{ form_label(form.firstname, 'First Name', { 'attr': {'class': 'required'} }) }}<br />
+                {{ form_widget(form.firstname) }}
+                {{ form_errors(form.firstname) }}
+            </div>
+
+            <div class="span-6 last">
+                {{ form_label(form.lastname, 'Last Name', { 'attr': {'class': 'required'} }) }}<br />
+                {{ form_widget(form.lastname) }}
+                {{ form_errors(form.lastname) }}
+            </div>
+        </div>
+
+        <hr class="span-17" />
+
+        <div class="span-17 last">
+            <div class="span-6">
+                {{ form_label(form.gender, 'Gender') }}<br />
+                {{ form_widget(form.gender) }}
+                {{ form_errors(form.gender) }}
+            </div>
+
+            <div class="span-6">
+                {{ form_label(form.ethnicity, 'Ethnicity') }}<br />
+                {{ form_widget(form.ethnicity,  { 'empty_value': '-- Choose One --' }) }}
+                {{ form_errors(form.ethnicity) }}
+            </div>
+
+            <div class="span-6 last">
+                {{ form_label(form.citizenship) }}<br />
+                {{ form_widget(form.citizenship,  { 'empty_value': '-- Choose One --' }) }}
+                {{ form_errors(form.citizenship) }}
+            </div>
+        </div>
+
+        <hr class="span-17" />
+
+        <div class="span-17 last">
+            <div class="span-5">
+                {{ form_label(form.address.city, 'City', { 'attr': {'class': 'required'} }) }}<br />
+                {{ form_widget(form.address.city, { 'attr': { 'class': 'span3' } }) }}
+                {{ form_errors(form.address.city) }}
+            </div>
+
+            <div class="span-5">
+                {{ form_label(form.address.state, 'State/Province', { 'attr': {'class': 'required'} }) }}<br />
+                {{ form_widget(form.address.state, { 'attr': { 'class': 'span3' } }) }}
+                {{ form_errors(form.address.state) }}
+            </div>
+
+            <div class="span-5 last">
+                {{ form_label(form.address.country, 'Country', { 'attr': {'class': 'required'} }) }}<br />
+                {{ form_widget(form.address.country, {'empty_value': '-- Choose One --',}) }}
+                {{ form_errors(form.address.country) }}
+            </div>
+        </div>
+
+        <fieldset id="contact" class="span-17 last">
+            <legend>Contact</legend>
+
+            {% for email in form.emails %}
+                <div class="span-6">
+                    {{ form_label(email.email, 'Email', { 'attr': {'class': 'required'} }) }}<br />
+                    {{ form_widget(email.email, { 'attr': {'class': 'span4'} }) }}
+                    {{ form_errors(email.email) }}
+                </div>
+            {% endfor %}
+
+            {% for phone in form.phonenumbers %}
+                <div class="span-5">
+                    {{ form_label(phone.number, 'Phone (optional)') }}<br />
+                    {{ form_widget(phone.number, { 'attr': {'class': 'span3'} }) }}
+                    {{ form_errors(phone.number) }}
+                </div>
+            {% endfor %}
+
+            {% for fax in form.faxnumbers %}
+                <div class="span-5 last">
+                    {{ form_label(fax.number, 'Fax (optional)') }}<br />
+                    {{ form_widget(fax.number, { 'attr': {'class': 'span3'} }) }}
+                    {{ form_errors(fax.number) }}
+                </div>
+            {% endfor %}
+        </fieldset>
+
+        <div class="span-6 colborder">
+            {{ form_label(form.profile.participate_in_survey, "Participate in a research study about your use of iPlant's applications and services?", { 'attr': {'class': 'required'} }) }}
+            (<a target="_blank" href="http://www.iplantcollaborative.org/about/understanding-use">Understanding Use</a>)
+            <br />
+            {{ form_widget(form.profile.participate_in_survey) }}
+            {{ form_errors(form.profile.participate_in_survey) }}
+        </div>
+
+        <div class="span-8 last">
+            {{ form_label(form.profile.how_heard_about, 'How did you hear about us?') }}<br />
+            {{ form_widget(form.profile.how_heard_about,  { 'empty_value': '-- None --' }) }}
+            {{ form_errors(form.profile.how_heard_about) }}
+        </div>
+    </fieldset>
+
+    <fieldset id="institution" class="span-18 last">
+        <legend>Institutional Information</legend>
+
+        <div class="span-6">
+            {{ form_label(form.profile.institution.name, 'Company or Institution', { 'attr': {'class': 'required'} }) }}<br />
+            {{ form_widget(form.profile.institution.name, { 'attrs': { 'size': '48' } } ) }}
+            {{ form_errors(form.profile.institution.name) }}
+        </div>
+
+        <div class="span-6 last">
+            {{ form_label(form.profile.department, 'Your Department', { 'attr': {'class': 'required'} }) }}<br />
+            {{ form_widget(form.profile.department) }}
+            {{ form_errors(form.profile.department) }}
+        </div>
+
+        <hr class="span-17" />
+
+        <div class="span-6">
+            {{ form_label(form.profile.position, 'Your Occupation', { 'attr': {'class': 'required'} }) }}<br />
+            {{ form_widget(form.profile.position, {'empty_value': '-- Choose One --' }) }}
+            {{ form_errors(form.profile.position) }}
+        </div>
+
+        <hr class="span-17" />
+
+        <div class="span-6 last">
+            {{ form_label(form.profile.research_area, 'Your Research Area (optional)') }}<br />
+            {{ form_widget(form.profile.research_area, { 'empty_value': '-- None --' }) }}
+            {{ form_errors(form.profile.research_area) }}
+        </div>
+
+        <div class="span-6 last">
+            {{ form_label(form.profile.institution.funding_agencies, 'Funding Agencies (optional)', { 'attr': {'class': 'required'} }) }}<br />
+            {{ form_widget(form.profile.institution.funding_agencies, { 'attr': { 'class' : 'span6', 'size': '4' } }) }}
+            {{ form_errors(form.profile.institution.funding_agencies) }}
+        </div>
+    </fieldset>
+
+    <fieldset id="account" class="span-18 last">
+        <legend>Account Login</legend>
+
+        <div class="span-6 colborder">
+            {{ form_label(form.account.username, 'Username', { 'attr': {'class': 'required'} }) }}<br />
+            {{ form_widget(form.account.username, { 'attr' : {'size':'20'} }) }}
+            {{ form_errors(form.account.username) }}
+            <p class="info">Username must have at least 3 characters. Lowercase only. First character must be a lowercase letter. May only contain lowercase letters, numbers, dashes and underscores (_).</p>
+        </div>
+
+        <div class="span-6">
+            {{ form_widget(form.account.password) }}
+            {{ form_errors(form.account.password) }}
+            <p class="help-block">Pasted passwords may not work.</p>
+            <p class="help-block">Optional special characters may only be: !, @, #, $, %, ^, &, *, ?, _, ~</p>
+        </div>
+    </fieldset>
+
+    <div class="span-9 prepend-5 append-4 last">
+        {{ form_rest(form) }}
+        <div class="span-3 prepend-3 last prepend-top">
+            <input type="submit" value="Save" />
+        </div>
+    </div>
+</form>
+{% endblock %}
+{% block javascript %}
+    $("#person_account_password_password").simplePassMeter({
+        'showOnFocus': false,
+        'requirements': {
+            'matchField': {
+                'value': '#person_account_password_confirm_password'
+            },
+            'minLength': {'value': 8},  // at least 8 characters
+            'numbers': { 'value': true },
+            'lower': {'value': true},    // at least 1 lower-case letter
+            'upper': {'value': true},    // at least 1 upper-case letter
+            'special': {'value': false},   // at least 1 special character
+            'noForbiddenCharacters': {
+                'value': false,
+                  'message': 'Only letters, numbers and certain optional special characters are allowed',
+                  //!@#$%^&*?_~
+                  'regex': '^[0-9a-zA-Z]$'
+            }
+        }
+    });
+
+    $("#person_profile_institution_name").each(function() {
+        var autoCompelteElement = this;
+        var formElementName = $(this).attr('name');
+        var formElementId = $(this).attr('id');
+        var hiddenElementID  = formElementId + '_autocomplete_hidden';
+
+        $(this).autocomplete({
+            source:'/api/v1/institutions/',
+            minLength: 3,
+            select: function(event, ui) {
+                //if user selects more than one, we get multiple hidden id elements
+                $('#'+hiddenElementID).remove();
+
+                //changed so not editing it doesn't erase existing values
+                /* change name of orig input */
+                $(this).attr('name', formElementName + '_autocomplete_label');
+                /* create new hidden input with name of orig input */
+                $(this).after("<input value=\"\" type=\"hidden\" name=\"" + formElementName + "\" id=\"" + hiddenElementID + "\" />");
+
+                var selectedObj = ui.item;
+                $(autoCompelteElement).val(selectedObj.label);
+                $('#'+hiddenElementID).val(selectedObj.value);
+
+                return false;
+            }
+        });
+    });
+
+    /** Prevent form submission without sufficient score */
+    /* disable form submission */
+    $('input[type=submit]').attr('disabled', 'disabled');
+    $('input[type=submit]').addClass('disabled');
+
+    $('#person_account_password_password').bind('score.simplePassMeter', function(jQEvent, score) {
+        if ( score >= 40 ) {
+            //re-enable form submission
+            $('input[type=submit]').removeAttr('disabled');
+            $('input[type=submit]').removeClass('disabled');
+        } else {
+            //redisable it all if the score is less than 40
+            $('input[type=submit]').attr('disabled', 'disabled');
+            $('input[type=submit]').addClass('disabled');
+        }
+    });
+
+    $('form').submit(function(){
+        // On submit disable its submit button
+        $('input[type=submit]').attr('disabled', 'disabled');
+    });
+{% endblock %}

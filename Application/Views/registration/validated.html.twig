@@ -1,0 +1,20 @@
+{% extends '_layouts/public.html.twig' %}
+{% block head %}
+    <meta http-equiv="refresh" content="5; url='http://user.iplantcollaborative.org/dashboard/'" />
+{% endblock %}
+
+{% block title %}Registration Validated{% endblock %}
+
+{% block content %}
+<div class="box span-17 last">
+    <h2>Your Account is Validated!</h2>
+
+    <p>You will be automatically redirected to the login page for your dashboard in 5 seconds.</p>
+    <p>
+        You now have automatic access to the following iPlant services:
+        Discovery Environment, My-Plant, iPlant Data Store, iPlant Wiki, TNRS, and Bug and Issue Tracking.
+    </p>
+
+    <h3>If you haven't yet been automatically redirected, go to your <a href="/dashboard">Apps and Services Dashboard</a>.</h3>
+</div>
+{% endblock %}

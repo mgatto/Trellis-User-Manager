@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+    <head>
+        <meta charset="utf-8" />
+
+        <!-- for older browsers ;-) -->
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE8" />
+
+        {% block head %}
+            <title>{% block title %}{% endblock %} | iPlant Collaborative | Tucson, AZ</title>
+        {% endblock %}
+        <meta name="description" content="" />
+        <link type="text/plain" rel="author" href="humans.txt" />
+
+        <!-- Scripts, which must be in the Head; all others go just before </body> -->
+        <script src="/js/lib/modernizr-2.0.min.js" type="text/javascript"></script>
+        <script src="/js/lib/cssua.min.js" type="text/javascript"></script>
+
+        <!-- Styles -->
+        <link rel="stylesheet" href="/css/lib/print.css" type="text/css" media="print" />
+        <link rel="stylesheet" href="/css/styles-1.1.0.min.css" type="text/css" media="screen" />
+        <link rel="stylesheet" href="/css/cupertino/jquery-ui-1.8.16.custom.css" type="text/css" media="screen" />
+        <!--[if lt IE 8]>
+          <link rel="stylesheet" href="/css/lib/ie.css" type="text/css" media="screen, projection">
+        <![endif]-->
+        <style>
+            {% block style %}{% endblock %}
+        </style>
+    </head>
+    <body>
+        <div id="body" class="container">
+            <header id="top" class="span-18 prepend-3 append-3 last append-bottom">
+                <div id="logo-wrapper" class="span-18 last">
+                    <a href="http://www.iplantcollaborative.org/">
+                        <img id="logo" alt="logo" src="/artwork/logo.png" />
+                    </a>
+                </div>
+
+                <div class="span-18 last subheader">
+                    <h1 class="span-10">
+                        <a href="/">Trellis: iPlant User Management <!-- <sup class="small quiet">BETA</sup> --></a>
+                    </h1>
+
+                    <div id="loggedin" class="span-7 last">
+                        {{ logged_in_as()|raw }}
+                    </div>
+
+                    <div class="span-14 prepend-1 last">
+                        <p style="margin:0;font-weight:bold;">
+                            A centralized place for you to manage your iPlant user profile and iPlant services.
+                        </p>
+                    </div>
+                </div>
+                <!-- <div class="span-17 last notice" style="text-align:center;">Trellis will be offline <em>today</em> Aug 23, 2012 from 3:30pm PDT to 5:00pm PDT.</div> -->
+            </header>
+
+            <div id="text" class="span-18 append-3 prepend-3 last append-bottom">
+            {% autoescape false %}
+                {% if message %}
+                <div class="info">
+                    {{ message }}
+                </div>
+                {% endif %}
+
+                {% if info is defined %}
+                <div class="info">
+                    {{ info }}
+                </div>
+                {% endif %}
+
+                {% if notice is defined %}
+                <div class="notice">
+                    {{ notice }}
+                </div>
+                {% endif %}
+
+                {% if warning is defined %}
+                <div class="alert">
+                    {{ notice }}
+                </div>
+                {% endif %}
+
+                {% if error is defined %}
+                <div class="error">
+                    {{ error }}
+                </div>
+                {% endif %}
+
+                {% if success is defined %}
+                <div class="success">
+                    {{ success }}
+                </div>
+                {% endif %}
+
+                {% for flash_type, flash_message in app.session.getFlashes %}
+                    <div class="{{ flash_type }}">
+                        {{ flash_message }}
+                        {# app.session.getFlash(flash_type)  requires Twig 1.5 #}
+                    </div>
+                {% endfor %}
+            {% endautoescape %}
+
+                {% block content %}{% endblock %}
+            </div>
+
+            <footer class="span-24 last prepend-top">
+                <div id="credits" class="span-24 center last">
+                    {% block footer %}
+                        Trellis 1.1.2; &copy; Copyright 2013 by iPlant Collaborative
+                    {% endblock %}
+                </div>
+            </footer>
+        </div>
+
+        <script type="text/javascript" src="/js/scripts-1.0.0.min.js"></script>
+        {% block scriptsources %}{% endblock %}
+        <script type="text/javascript">
+            $(document).ready(function() {
+                $('#contact-slide-out').tabSlideOut({
+                    tabHandle: '.handle',                             //class of the element that will be your tab
+                    toggleButton: '.slider',
+                    pathToTabImage: '/artwork/contact_tab.png',          //path to the image for the tab *required*
+                    imageHeight: '122px',                               //height of tab image *required*
+                    imageWidth: '40px',                               //width of tab image *required*
+                    tabLocation: 'left',                               //side of screen where tab lives, top, right, bottom, or left
+                    speed: 300,                                        //speed of animation
+                    action: 'click',                                   //options: 'click' or 'hover', action to trigger animation
+                    topPos: '200px',                                   //position from the top
+                    fixedPosition: false                               //options: true makes it stick(fixed position) on scroll
+                });
+
+                $("a[rel=help]").twipsy({
+                    live: true,
+                    placement: 'right'
+                });
+
+                {% block javascript %}{% endblock %}
+            });
+        </script>
+
+        <div id="contact-slide-out">
+            <a class="handle" href="http://link-for-non-js-users">Help</a>
+            {{ render('/contact/') }}
+        </div>
+    </body>
+</html>

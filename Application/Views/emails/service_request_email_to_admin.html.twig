@@ -1,0 +1,42 @@
+{% extends '_layouts/email_admin.html.twig' %}
+
+{% set subject %}{{ person.account.username }} Requests to Access {{ service.name }}{% endset %}
+
+{% block content %}
+<p>{{ person.firstname }} {{ person.lastname }} has requested access to {{ service.name }} in the user portal with username: <strong>{{ person.account.username }}</strong>.</p>
+<p>
+    They are a <strong>{{ person.profile.position.name }}</strong>
+    in <strong>{{ person.profile.department }}</strong>
+    at <strong>{{ person.profile.institution }}</strong>
+    located in {{ person.address.state }}, {{ person.address.country }}
+</p>
+
+<h2>Request Details</h2>
+<dl>
+    {% for question, answer in data[key] %}
+    <dt>{{ question|capitalize }}</dt>
+    <dd>
+        <p>{{ answer|join(',') }}</p>
+    </dd>
+    {% endfor %}
+    </dl>
+</div>
+
+<div>
+    <h2>Contact</h2>
+    <table>
+        <tr>
+            <th>Email:</th>
+            <td>{{ person.emails[0].email }}</td>
+        </tr>
+    </table>
+</div>
+
+<div>
+    <h2>Admin Actions</h2>
+    <ul>
+        <li><a href="https://user.iplantcollaborative.org/api/v1/request/approve/{{ request.account.id }}/{{ request.service.id }}">Approve</a></li>
+        <li><a href="https://user.iplantcollaborative.org/api/v1/request/deny/{{ request.account.id }}/{{ request.service.id }}">Deny</a></li>
+    </ul>
+</div>
+{% endblock %}

@@ -1,0 +1,13 @@
+
+{% filter upper %}{{ subject }}{% endfilter %}
+{% for i in subject|length %}={% endfor %}
+
+
+Hello {{ person.firstname }} {{ person.lastname }},
+
+{% block content %}{% endblock %}
+
+As a reminder, your iPlant username is: {{ person.account.username }}.
+
+Sincerely,
+- iPlant Collaborative Staff

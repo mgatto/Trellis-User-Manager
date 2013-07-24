@@ -1,0 +1,49 @@
+{% extends '_layouts/public.html.twig' %}
+
+{% block title %}Request DNA Subway{% endblock %}
+
+{% block content %}
+<div class="box span-17 last">
+    <h3>Request Access to DNA Subway</h3>
+
+    <div class="span-16 last">
+        {{ form_errors(form) }}
+    </div>
+
+    <form action="{{ action }}" method="post" id="edit_user" enctype="multipart/form-data" accept-charset="UTF-8">
+        <div class="span-16 append-6 last">
+            <div id="usage" class="span-16 append-bottom last">
+                {{ form_row(form.how_will_use) }}
+            </div>
+
+            <!-- <h4>School Information</h4>-->
+            <p>If you are a student or educator, please provide us with the following information:</p>
+
+            <div class="span-6">
+                {{ form_label(form.school_name) }}<br />
+                {{ form_widget(form.school_name) }}
+                {{ form_errors(form.school_name) }}
+            </div>
+
+            <div class="span-6 last">
+                {{ form_label(form.school_type) }}<br />
+                {{ form_widget(form.school_type,  { 'empty_value': '-- None --' }) }}
+                {{ form_errors(form.school_type) }}
+            </div>
+
+            <div class="span-12 last">
+                {{ form_label(form.school_surrounding_area) }}<br />
+                {{ form_widget(form.school_surrounding_area,  { 'empty_value': '-- None --' }) }}
+                {{ form_errors(form.school_surrounding_area) }}
+            </div>
+
+            <div class="span-16 last prepend-top">
+                {{ form_widget(form.id) }}
+                {{ form_widget(form._token) }}
+
+                <input type="submit" value="Save Request" />
+            </div>
+        </div>
+    </form>
+</div>
+{% endblock %}

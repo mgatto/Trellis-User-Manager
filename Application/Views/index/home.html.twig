@@ -1,0 +1,35 @@
+{% extends '_layouts/public.html.twig' %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<div class="span-9">
+    <div id="register" class="box span-8 last">
+        <h2><a href="/register">New User?</a></h2>
+
+        <a href="{{ register_url }}" class="button">Register</a>
+        <p>Click to manage your iPlant user profile information and the iPlant services that are available to you.</p>
+    </div>
+
+    <div class="box span-8 last">
+        <h2>Forgot your Password?</h2>
+
+
+        <a href="{{ reset_url }}" class="button">Reset Password</a>
+        <p>Click here to reset your password.</p>
+    </div>
+</div>
+
+
+<div id="login" class="box span-8 last">
+    <h2><a href="/dashboard">Log in with:</a></h2>
+
+    <a href="/dashboard" class="button">iPlant Login</a>
+    <p>Click here if you have previously created an iPlant user ID.</p>
+
+    <hr />
+
+    <a class="button disabled">InCommon Login</a>
+    <p><span class="label notice-tag">Coming Soon</span> Log in with the same username and password used at your institution using <a target="_blank" href="http://www.incommonfederation.org/">InCommon</a>. InCommon federates user credentials across many academic and research institutions in the United States.</p></li>
+</div>
+{% endblock %}

@@ -1,0 +1,16 @@
+{% extends '_layouts/email_user.txt.twig' %}
+
+{% set subject %}iPlant Username Reminder{% endset %}
+
+{% block content %}
+
+You have requested to be reminded of your username.
+
+Your username is: {{ person.account.username }}
+
+----------------------------------------------
+
+If you have not made this request, please ignore it and report it to iPlant
+at http://www.iplantcollaborative.org/support.
+
+{% endblock %}

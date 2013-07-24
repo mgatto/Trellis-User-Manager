@@ -1,0 +1,22 @@
+{% extends '_layouts/public.html.twig' %}
+
+{% block title %}Error: Must Validate Your Account{% endblock %}
+
+{% block content %}
+<div class="box span-17 last">
+    <h2>Error: Must Validate Your Account</h2>
+    <p>
+        We cannot save your request to reset your password. Your account is not yet validated.
+    </p>
+
+    <p>
+       You should have received an email with a url to validate your account so we know you are a real person.
+       <strong>How To:</strong>Click on the link in the email; that's all!
+    </p>
+
+    <p>
+        <strong>If you have not yet received your account validation email, please check your SPAM folder in case it went there automatically.</strong>
+        Otherwise, please contact iPlant Support using the tab on the left of the page.
+    </p>
+</div>
+{% endblock %}

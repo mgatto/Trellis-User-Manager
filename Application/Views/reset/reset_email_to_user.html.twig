@@ -1,0 +1,34 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+    <head>
+       <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+       <title></title>
+    </head>
+    <body>
+        <table width="100%" border="0">
+            <tr id="header">
+                <td rowspan="3" width="10%">&nbsp;</td>
+                <td>
+                    <img src="http://user.iplantcollaborative.org/artwork/logo.png">
+                    <br><br>
+                </td>
+                <td rowspan="3" width="10%">&nbsp;</td>
+            </tr>
+            <tr>
+                <td>
+                    <p>Hello {{ user.person.firstname }} {{user.person.lastname }},</p>
+
+                    <p>You have requested to reset your password.</p>
+                    <p>To change your password, go to <a href="{{ reset_url }}">{{ reset_url }}</a>.</p>
+                    <p>If you have not made this request, please ignore it and report it to iPlant at <a href="http://www.iplantcollaborative.org/support">http://www.iplantcollaborative.org/support</a>.</p>
+
+                    <p>
+                        Sincerely,<br>
+                        - iPlant Collaborative Staff {# iPlant Support #}
+                    </p>
+                    <br><br>
+                </td>
+            </tr>
+        </table>
+    </body>
+</html>

@@ -1,0 +1,26 @@
+{% extends '_layouts/public.html.twig' %}
+
+{% block title %}About Trellis{% endblock %}
+
+{% block content %}
+<div id="about-splash" class="span-18 last">
+    <div id="tabs" style="overflow:hidden;">
+         <ul>
+             <li><a href="#whats-new" title="">What's New</a></li>
+         </ul>
+    </div>
+
+    <div id="whats-new">
+        <h3>Release 1.1</h3>
+        <p></p>
+
+        <ul>
+            <li></li>
+        </ul>
+    </div>
+</div>
+{% endblock %}
+
+{% block javascript %}
+$("#tabs").tabs({});
+{% endblock %}

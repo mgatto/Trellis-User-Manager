@@ -1,0 +1,58 @@
+{% extends '_layouts/public.html.twig' %}
+
+{% block title %}Reset Password{% endblock %}
+
+{% block content %}
+<div class="box span-17 last">
+    <h2>Request to Reset Password</h2>
+    <p>Enter either your iPlant username or the email address you registered with to receive an email with a link to reset your password.</p>
+    <div class="span-14 append-1 last">
+        {{ form_errors(form) }}
+    </div>
+
+    <form action="{{ action }}" method="post" id="request_reset" enctype="multipart/form-data" accept-charset="UTF-8">
+        <div class="span-6">
+            {{ form_label(form.username, 'iPlant Username') }}<br />
+            {{ form_widget(form.username) }}
+            {{ form_errors(form.username) }}
+        </div>
+
+        <div class="span-2" style="font-weight:bold;font-size:3em;margin-top:0.9em;">
+            OR
+        </div>
+
+        <div class="span-6 last">
+            {{ form_label(form.email, 'Email Address') }}<br />
+            {{ form_widget(form.email) }}
+            {{ form_errors(form.email) }}
+
+            <p class="help-inline">This is the email you used to register with iPlant </p>
+        </div>
+
+        <div class="span-6 prepend-3 append-3 last append-bottom">
+            {{ form_rest(form) }}
+
+        </div>
+        <div class="span-3 prepend-5 append-3 last append-bottom">
+            <input type="submit" value="Send Link" />
+        </div>
+
+        <hr />
+
+        <div class="span-12 last">
+            <h3>Forgotten Username</h3>
+            <p>Have a <a href="{{ url_for_reminder }}">reminder sent</a> to your email address which you registered with iPlant.</p>
+
+            <h3>Forgotten Email Address</h3>
+            <p>Contact iPlant Support:</p>
+
+            <ul style="margin-left:2em;margin-top:0.4em;">
+                <li>Use the contact tab to the left,</li>
+                <li>Email: <a href="mailto:support@iplantcollaborative.org">support@iplantcollaborative.org</a>,</li>
+                <li>Web Form: <a href="http://www.iplantcollaborative.org/support">http://www.iplantcollaborative.org/support</a>.</li>
+            </ul>
+        </div>
+
+    </form>
+</div>
+{% endblock content %}

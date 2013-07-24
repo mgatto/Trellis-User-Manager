@@ -1,0 +1,205 @@
+<div id="api-and-clients">
+    <h2 id="" class="span-17 last">API Clients</h3>
+
+    <p>You may register API clients here in order to use iPlant APIs.</p>
+
+    <p class="info">You may register more than one client per API</p>
+
+    <div id="apis-menu" class="span-17 last append-bottom">
+        <a href="#mine">My APIs ({{ clients|length }})</a> |
+       {% if requests %} <a href="#pending">Pending Client Registrations ({{ requests|length }})</a> |{% endif %}
+        <a href="#available">Available APIs ({{ availables|length }})</a>
+    </div>
+
+{% if requests %}
+    <hr />
+    <h3 id="pending" class="span-17 last">Pending API Client Requests <a href="#" rel="help" title="Pending or denied API client requests"><img src="/artwork/icons/small_help.gif" alt="Help"/></a></h3>
+    <p class="notice span-16 last"><strong>Note: You will receive an email once your client is approved by iPlant Staff.</strong></p>
+
+    {% for request in requests %}
+    <div id="{{ request.api.name }}" class="box span-16 last">
+
+        <!-- <div class="span-1 api-icon">
+        {% if request.api.icon %}
+            <img src="/artwork/icons/{{ request.api.icon }}" title="{{ request.api.name }}" />
+        {% else %}
+            &nbsp;
+        {% endif %}
+        </div> -->
+
+        <div class="span-4 api-name">
+            <strong>{{ request.name }}</strong>
+            <div>
+                {{ request.api.name }}<br />
+                <span class="small quiet">Maintained by: {{ request.api.maintainer.name }}</span>
+            </div>
+        </div>
+
+        <div class="span-7 api-description">
+            <p>{{ request.api.description }}</p>
+        </div>
+
+        <div class="span-4 api-url last">
+            <div class="span-4 last">
+                    <span>Request Status:
+                    {% if request.approval == 'denied' %}
+                        <strong style="color:#BF4C4C">Denied</strong>
+                    {% else %}
+                        {% if request.status == 'add' %}
+                            <strong>Pending</strong>
+                        {% else %}
+                            <strong>{{ request.status|title }}</strong>
+                        {% endif %}
+
+                        {% if request.status == 'failed' %}
+                            <br />
+                            <span class="quiet small">We will retry the request</span>
+                        {% endif %}
+                    {% endif %}
+                    <br />as of {{ request.updated|date('M d, Y') }}<br />
+                </span>
+            </div>
+
+            {% for action in request.api.actions %}
+                {% if action.event == 'help' %}
+                <div class="span-1 last" style="border-top:1px dotted lightgray;margin-top:3px;padding-top:3px;">
+                    <a href="{{ action.url }}" target="_blank" title="User Manual" class="small quiet">
+                        <img src="/artwork/icons/small_doc.gif" width="14" height="16" style="margin-bottom:-3px;" />
+                    </a>
+                </div>
+                {% endif %}
+
+                {% if action.event == 'email' %}
+                <div class="span-1 last" style="border-top:1px dotted lightgray;margin-top:3px;padding-top:3px;">
+                    <a href="mailto:{{ action.url }}">
+                        <img src="/artwork/icons/small_mail.gif" alt="email" style="margin-bottom:-3px;" title="Email the maintainer" />
+                    </a>
+                </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+    {% endfor %}
+{% endif %}
+
+    <hr />
+    <h3 id="mine" class="span-17 last">My API Clients <a href="#" rel="help" title="APIs to which you have access"><img class="help-tooltip" src="/artwork/icons/small_help.gif" /></a></h3>
+{% if clients %}
+    {% for client in clients %}
+    <div id="{{ client.name }}" class="box span-16 last">
+        <!-- <div class="span-1 api-icon">
+            {% if client.api.icon %}
+                <img src="/artwork/icons/{{ client.api.icon }}" title="{{ client.api.name }}" width="36" height="36" />
+            {% else %}
+                &nbsp;
+            {% endif %}
+        </div>-->
+
+        <div class="span-4 api-name">
+            <strong>{{ client.name }}</strong>
+            <div>
+                {{ client.api.name }}<br />
+                <span class="small quiet">Maintained by: {{ client.api.maintainer.name }}</span>
+            </div>
+        </div>
+
+        <div class="span-8 api-keys">
+            <h6>Your Key:</h6>
+            {{ client.api_key }}
+            <br />
+            <h6>Your Secret:</h6> {{ client.api_secret }}
+
+        </div>
+
+        <div class="span-4 api-url last">
+            <div class="span4 last">
+                <form action="{{ regenerate }}" method="POST" name="regenerate_keys">
+                    <input type="hidden" name="client_id" value="{{ client.id }}" />
+                    <input type="submit" value="Regenerate Keys" />
+                </form>
+            </div>
+
+        {% for action in client.api.actions %}
+            {% if action.event == 'access' %}
+            {% endif %}
+
+            {% if action.event == 'help' %}
+            <div class="span-1 last" style="border-top:1px dotted lightgray;margin-top:3px;padding-top:3px;">
+                <a href="{{ action.url }}" target="_blank" title="User Manual" class="small quiet">
+                    <img src="/artwork/icons/small_doc.gif" width="14" height="16" style="margin-bottom:-3px;" />
+                </a>
+            </div>
+            {% endif %}
+
+            {% if action.event == 'email' %}
+            <div class="span-1 last" style="border-top:1px dotted lightgray;margin-top:3px;padding-top:3px;">
+                <a href="mailto:{{ action.url }}">
+                    <img src="/artwork/icons/small_mail.gif" alt="email" style="margin-bottom:-3px;" title="Email the maintainer" />
+                </a>
+            </div>
+            {% endif %}
+        {% endfor %}
+        </div>
+
+        {# if client.api.maintenanceMessage #}
+            <!-- <div class="error span-15 last" style="margin:0;margin-top:0.5em;">{# client.api.maintenanceMessage #}</div >  -->
+        {# endif #}
+    </div>
+    {% endfor %}
+{% else %}
+    <div id="" class="span-16 last">
+        To register a new client, select an available API below and click <em>Register a Client</em>.
+    </div>
+{% endif %}
+
+    <hr />
+    <h3 id="available" class="span-17 last">Available APIs <a href="#" rel="help" title="List of APIs that are available for request. Click 'Register a Client' and complete the form."><img src="/artwork/icons/small_help.gif" alt="Help" /></a></h3>
+    <p>List of APIs that are available for request as API clients. Click <strong>Register a Client</strong> for the API to register and fill out the form.</p>
+{% for available in availables %}
+    <div id="{{ available.name }}" class="box span-16 last">
+
+        <!-- <div class="span-1 api-icon">
+        {% if available.icon %}
+            <img src="/artwork/icons/{{ available.icon }}" title="{{ available.name }}" width="36" height="36" />
+        {% else %}
+            &nbsp;
+        {% endif %}
+        </div> -->
+
+        <div class="span-4 api-name">
+            <strong>{{ available.name }}</strong>
+            <div>
+                <span class="small quiet">Maintained by: {{ available.maintainer.name }}</span>
+            </div>
+        </div>
+
+        <div class="span-8 api-description">
+            <p>{{ available.description }}</p>
+        </div>
+
+        <div class="span-4 api-url last">
+            <div class="span-4 last">
+                <a href="/api/client/new/{{ available.id }}">Register a Client</a>
+            </div>
+            {% for action in available.actions %}
+                {% if action.event == 'help' %}
+                <div class="span-1 last" style="border-top:1px dotted lightgray;margin-top:3px;padding-top:3px;">
+                    <a href="{{ action.url }}" target="_blank" title="User Manual" class="small quiet">
+                        <img src="/artwork/icons/small_doc.gif" width="14" height="16" style="margin-bottom:-3px;" />
+                    </a>
+                </div>
+                {% endif %}
+
+                {% if action.event == 'email' %}
+                <div class="span-1 last" style="border-top:1px dotted lightgray;margin-top:3px;padding-top:3px;">
+                    <a href="mailto:{{ action.url }}">
+                        <img src="/artwork/icons/small_mail.gif" alt="email" style="margin-bottom:-3px;" title="Email the maintainer" />
+                    </a>
+                </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+{% endfor %}
+
+</div>
